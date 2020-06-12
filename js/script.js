@@ -10,7 +10,7 @@ $(document).ready( function() {
   alert(numeriGenerati);
 
   //Utente attende 30 secondi
-  setTimeout(indovinaUtente(serieNumeri, numeriGenerati), 3000);
+  setTimeout(indovinaUtente, 2000);
 
   //FUNZIONI
   //crea una numero(valore) di cifre Random da un Min (valore) a un Max(valore)
@@ -36,17 +36,20 @@ $(document).ready( function() {
 
   //viene chiesto un numero a Utente per nVolte(var serieNumeri);
   //verifico che il numero sia tra quelli che ha genberato il computer
-  function indovinaUtente (nRipetizioni, arrayNumeri) {
+  function indovinaUtente() {
     var numeroUtente = 0;
 
-    for (var count = 0; count < nRipetizioni; count++)
+    for (var count = 0; count < serieNumeri; count++)
+      console.log("counter" + count);
       numeroUtente = parseInt(prompt("Ti ricordi i numeri che hai appena visto? scrivine uno"));
-
-      if(arrayNumeri.includes(numeroUtente)) {
-        console.log("Il numero: " + numeroUtente + " Era presente. Bravo hai indovinato!")
-      }else {
-        console.log("Il numero: " + numeroUtente + " Non Era presente. Non hai indovinato!")
-      }
+      console.log(numeroUtente)
   }
 
 });
+
+
+// if(numeriGenerati.includes(numeroUtente)) {
+//   console.log("Il numero: " + numeroUtente + " Era presente. Bravo hai indovinato!")
+// }else {
+//   console.log("Il numero: " + numeroUtente + " Non Era presente. Non hai indovinato!")
+// }
