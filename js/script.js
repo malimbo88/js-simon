@@ -1,55 +1,61 @@
 //myJavaScript
 $(document).ready( function() {
   //VARIABILI
+  var serieNumeri = 5;
   var min = 1;
   var max = 10;
-  var serieNumeri = 5;
-  var numeriGenerati = randomNumber(serieNumeri, min, max)
+  var intervalloTimeout = 30000;
+  var arrayCpu = randomArray(serieNumeri, min, max);
 
   //Un alert espone 5 numeri casuali.
-  alert(numeriGenerati);
+  alert(arrayCpu);
 
   //Utente attende 30 secondi
-  setTimeout(indovinaUtente, 2000);
+  setTimeout(promptUtente, intervalloTimeout);
 
-  //FUNZIONI
-  //crea una numero(valore) di cifre Random da un Min (valore) a un Max(valore)
-  //inserisce i numeri generati in un array
-  //ritorna un array
-  function randomNumber (numeroCount, numeroMin, numeroMax) {
-    var arrayNumeri = [];
-    var numero = 0;
-    while (arrayNumeri.length < numeroCount) {
-      numero = Math.floor(Math.random() * numeroMax) + numeroMin;  // returns a random integer from 1 to 10;
+  //FUNZIONE
+  //crea una numero Random da un Min (valore) a un Max(valore)
+  //verifica se un numero e presente in arrayNumeri
+  //se non e presente lo aggiungo
+  //se e presente non lo aggiungo
+  //ritorna un array di numeri diversi
+  function randomArray (arrayLength, numeroMin, numeroMax) {
+    var arrayNumeri = []; //array di numeri generati dal cpu
+    while (arrayNumeri.length < arrayLength) {
+      var numero = 0; // elemento numero generato con funzione Math.floor
+      //crea una numero Random da un Min (valore) a un Max(valore)
+      numero = Math.floor(Math.random() * numeroMax) + numeroMin;
       // verifico che il numero non sia presente in arrayNumeri
       //se e' presente NON lo aggiungo in arrayNumeri
-      if(arrayNumeri.includes(numero)) {
-      }
-      //se NON e' presente lo aggiungo in arrayNumeri
-      else {
-        arrayNumeri.push(numero);
+      if (!arrayNumeri.includes(numero)){
+      arrayNumeri.push(numero)
       }
     }
-
-    return arrayNumeri;
+    return arrayNumeri
   }
 
+  //FUNZIONE
   //viene chiesto un numero a Utente per nVolte(var serieNumeri);
-  //verifico che il numero sia tra quelli che ha genberato il computer
-  function indovinaUtente() {
+  //verifico che il numero sia tra quelli che ha generato il computer
+  //ritorna un array risultato
+  //inserisce i risultati in array
+  function promptUtente() {
     var numeroUtente = 0;
-
-    for (var count = 0; count < serieNumeri; count++)
-      console.log("counter" + count);
+    var arrayUtente = [];
+    while (arrayUtente.length < arrayCpu.length) {
       numeroUtente = parseInt(prompt("Ti ricordi i numeri che hai appena visto? scrivine uno"));
-      console.log(numeroUtente)
+      //se il numero e compreso in lista array
+      if (arrayCpu.includes(numeroUtente)){
+        arrayUtente.push(" Numero: " + numeroUtente + " GIUSTO");
+      }else if (isNaN(numeroUtente) || numeroUtente === "") {
+        numeroUtente = parseInt(prompt("Devi scrivere un numero!"));
+      }
+      //se il numero NON e compreso in lista array
+      else{
+        arrayUtente.push(" Numero: " + numeroUtente + " ERRORE")
+      }
+    }
+    return $(".stampa").text(arrayUtente); //stampo i risultati
   }
 
-});
-
-
-// if(numeriGenerati.includes(numeroUtente)) {
-//   console.log("Il numero: " + numeroUtente + " Era presente. Bravo hai indovinato!")
-// }else {
-//   console.log("Il numero: " + numeroUtente + " Non Era presente. Non hai indovinato!")
-// }
+ });
